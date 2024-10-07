@@ -1,0 +1,48 @@
+﻿public void Display()
+{
+    string trangthai = this.status switch
+    {
+        0 => "Hủy",
+        1 => "Hoàn thành",
+        2 => "Chờ",
+        _ => "Không xác định"
+    };
+
+    Console.WriteLine($"Tên việc: {name}");
+    Console.WriteLine($"Độ ưu tiên: {priority}");
+    Console.WriteLine($"Mô tả: {description}");
+    Console.WriteLine($"Trạng thái: {status}");
+}
+
+static void AddTodo(List<Todo> todoList)
+{
+    Console.Clear();
+    Console.Write("Nhập tên việc: ");
+    string name = Console.ReadLine();
+    Console.Write("Nhập độ ưu tiên (1-5): ");
+    int priority = int.Parse(Console.ReadLine());
+    Console.Write("Nhập mô tả: ");
+    string description = Console.ReadLine();
+    Todo newTodo = new Todo(name, priority, description, 2); // Mặc định trạng thái là "Chờ"
+    todoList.Add(newTodo);
+    Console.WriteLine("Việc đã được thêm thành công!");
+    Console.WriteLine("Nhấn phím bất kỳ để tiếp tục...");
+    Console.ReadKey();
+}
+=======================================================================================================
+Mở file .csproj của dự án.
+Thêm hoặc sửa đổi phần LangVersion để sử dụng phiên bản C# 8.0 hoặc mới hơn:
+
+<PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{C3B737E2-D21E-4021-A21C-C404849737A0}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>Lê_Song_Nhật_Quyền</RootNamespace>
+    <AssemblyName>Lê Song Nhật Quyền</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+-> <LangVersion>8.0</LangVersion>
+  </PropertyGroup>
