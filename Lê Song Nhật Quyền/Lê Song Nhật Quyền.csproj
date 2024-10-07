@@ -44,7 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Notes.txt" />
-    <Compile Include="Program.cs" />
+    <Compile Include="LeSongNhatQuyen.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
