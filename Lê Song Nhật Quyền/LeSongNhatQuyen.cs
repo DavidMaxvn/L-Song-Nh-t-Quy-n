@@ -66,7 +66,7 @@ namespace Lê_Song_Nhật_Quyền
         {
             Console.Clear();
             DisplayAllTodos(todoList);
-            Console.Write("Nhập vị trí của việc làm cần xóa: ");
+            Console.Write("Nhập vị trí (0-6) của việc làm cần xóa: ");
             int index = int.Parse(Console.ReadLine());
 
             if (index >= 0 && index < todoList.Count)
@@ -86,7 +86,7 @@ namespace Lê_Song_Nhật_Quyền
         {
             Console.Clear();
             DisplayAllTodos(todoList);
-            Console.Write("Nhập vị trí của việc làm cần cập nhật trạng thái: ");
+            Console.Write("Nhập vị trí (0-6) của việc làm cần cập nhật trạng thái: ");
             int index = int.Parse(Console.ReadLine());
 
             if (index >= 0 && index < todoList.Count)
@@ -195,7 +195,8 @@ namespace Lê_Song_Nhật_Quyền
                 new Todo("Giáo dục quốc phòng và an ninh III",2,"Đã hoàn thành",1), //index 5
                 new Todo("Đi làm",1,"Tới công ty làm việc ?",0), //index 6
             };
-            ConsoleKeyInfo keyInfo;
+
+            bool running = true;
 
             do
             {
@@ -206,31 +207,44 @@ namespace Lê_Song_Nhật_Quyền
                 Console.WriteLine("3. Tìm kiếm việc cần làm theo tên");
                 Console.WriteLine("4. Hiển thị danh sách việc cần làm theo độ ưu tiên giảm dần");
                 Console.WriteLine("5. Hiển thị toàn bộ danh sách việc cần làm");
-                Console.WriteLine("Esc hoặc nhấn q để thoát");
+                Console.WriteLine("Nhấm phím Esc hoặc phím q để thoát");
                 Console.Write("Chọn chức năng: ");
 
-                keyInfo = Console.ReadKey();
-
-                switch (keyInfo.Key)
+                try
                 {
-                    case ConsoleKey.D1:
-                        DeleteTodo(todoList);
-                        break;
-                    case ConsoleKey.D2:
-                        UpdateTodoStatus(todoList);
-                        break;
-                    case ConsoleKey.D3:
-                        SearchTodoByName(todoList);
-                        break;
-                    case ConsoleKey.D4:
-                        DisplayTodosByPriority(todoList);
-                        break;
-                    case ConsoleKey.D5:
-                        DisplayAllTodos(todoList);
-                        break;
+                    ConsoleKeyInfo keyInfo = Console.ReadKey(true);
+                    switch (keyInfo.Key)
+                    {
+                        case ConsoleKey.D1:
+                            DeleteTodo(todoList);
+                            break;
+                        case ConsoleKey.D2:
+                            UpdateTodoStatus(todoList);
+                            break;
+                        case ConsoleKey.D3:
+                            SearchTodoByName(todoList);
+                            break;
+                        case ConsoleKey.D4:
+                            DisplayTodosByPriority(todoList);
+                            break;
+                        case ConsoleKey.D5:
+                            DisplayAllTodos(todoList);
+                            break;
+                        case ConsoleKey.Escape:
+                        case ConsoleKey.Q:
+                            running = false;
+                            break;
+                        default:
+                            throw new Exception("\nPhím nhập không hợp lệ. Vui lòng chọn phím từ 1-5 hoặc ESC/Q.");
+                    }
                 }
-
-            } while (keyInfo.Key != ConsoleKey.Escape && keyInfo.Key != ConsoleKey.Q);
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                    Console.WriteLine("Nhấn phím bất kỳ để thử lại...");
+                    Console.ReadKey();
+                }
+            } while (running);
         }
     }
 }
